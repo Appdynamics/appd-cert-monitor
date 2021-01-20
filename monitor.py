@@ -1,7 +1,6 @@
 from urllib.request import Request, urlopen, ssl, socket
 from urllib.error import URLError, HTTPError
 import json, time
-#some site without http/https in the path
 base_url = 'appdynamics.com'
 port = '443'
 

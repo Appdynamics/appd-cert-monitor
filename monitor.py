@@ -17,6 +17,6 @@ with socket.create_connection((hostname, port)) as sock:
 now = datetime.datetime.today()
 daysLeft = expirationDateDT - now
 
-DEFAULT_METRIC_PREFIX="name=Custom Metrics|CertMonitor|" + base_url + "|Days Until Cert Expiration, value=" + str(daysLeft.days)
+DEFAULT_METRIC_PREFIX="name=Custom Metrics|CertMonitor|" + hostname + "|Days Until Cert Expiration, value=" + str(daysLeft.days)
 
 print(DEFAULT_METRIC_PREFIX)

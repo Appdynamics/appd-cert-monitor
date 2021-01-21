@@ -1,22 +1,28 @@
 from urllib.request import Request, urlopen, ssl, socket
 from urllib.error import URLError, HTTPError
 import json, datetime
+import xml.etree.ElementTree as ET
 
-#todo: get from xml
-hostname = 'appdynamics.com'
-port = '443'
+tree = ET.parse('monitor.xml')
+root = tree.getroot()
 
-context = ssl.create_default_context()
+targets = root.findall("./monitor-run-task/variables/targets/target")
 
-with socket.create_connection((hostname, port)) as sock:
-    with context.wrap_socket(sock, server_hostname=hostname) as ssock:
-        data = ssock.getpeercert()
-        expirationDate = data['notAfter']
-        expirationDateDT = datetime.datetime.strptime(expirationDate, '%b  %d %H:%M:%S %Y %Z') 
+for target in targets:
+  hostname = target.text
+  port = target.get("port")
 
-now = datetime.datetime.today()
-daysLeft = expirationDateDT - now
-
-DEFAULT_METRIC_PREFIX="name=Custom Metrics|CertMonitor|" + hostname + "|Days Until Cert Expiration, value=" + str(daysLeft.days)
-
-print(DEFAULT_METRIC_PREFIX)
+  context = ssl.create_default_context()
+  
+  with socket.create_connection((hostname, port)) as sock:
+      with context.wrap_socket(sock, server_hostname=hostname) as ssock:
+          data = ssock.getpeercert()
+          expirationDate = data['notAfter']
+          expirationDateDT = datetime.datetime.strptime(expirationDate, '%b  %d %H:%M:%S %Y %Z') 
+  
+  now = datetime.datetime.today()
+  daysLeft = expirationDateDT - now
+  
+  DEFAULT_METRIC_PREFIX="name=Custom Metrics|CertMonitor|" + hostname + "|Days Until Cert Expiration,value=" + str(daysLeft.days)
+  
+  print(DEFAULT_METRIC_PREFIX)

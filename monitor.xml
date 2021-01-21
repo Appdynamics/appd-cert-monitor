@@ -20,7 +20,7 @@
         </variables>
         <executable-task>
             <type>file</type>
-            <file os-type="linux">monitor.py</file>
+            <file os-type="linux">monitor.sh</file>
         </executable-task>
     </monitor-run-task>
 </monitor>

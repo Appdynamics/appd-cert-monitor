@@ -1,0 +1,26 @@
+<monitor>
+    <name>AppDynamics Cert Monitor</name>
+    <type>managed</type>
+    <enabled>true</enabled>
+    <description>Monitor expiration dates on certs</description>
+    <monitor-configuration></monitor-configuration>
+    <monitor-run-task>
+        <execution-style>periodic</execution-style> 
+        <execution-frequency-in-seconds>60</execution-frequency-in-seconds> 
+        <execution-timeout-in-secs>300</execution-timeout-in-secs>
+        <name>AppDynamicsCertMonitor</name>
+        <type>executable</type>
+        <task-arguments>
+        </task-arguments>
+        <variables>
+            <targets>
+                <target port="443">www.appdynamics.com</target>
+                <target port="443">www.cisco.com</target>
+            </targets>
+        </variables>
+        <executable-task>
+            <type>file</type>
+            <file os-type="linux">monitor.py</file>
+        </executable-task>
+    </monitor-run-task>
+</monitor>

@@ -1,2 +1,2 @@
 #!/bin/bash
-./monitor.py
+python3 monitor.py

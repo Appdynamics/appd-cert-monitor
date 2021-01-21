@@ -6,7 +6,7 @@
     <monitor-configuration></monitor-configuration>
     <monitor-run-task>
         <execution-style>periodic</execution-style> 
-        <execution-frequency-in-seconds>60</execution-frequency-in-seconds> 
+        <execution-frequency-in-seconds>300</execution-frequency-in-seconds> 
         <execution-timeout-in-secs>300</execution-timeout-in-secs>
         <name>AppDynamicsCertMonitor</name>
         <type>executable</type>

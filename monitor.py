@@ -17,12 +17,10 @@ for target in targets:
   with socket.create_connection((hostname, port)) as sock:
       with context.wrap_socket(sock, server_hostname=hostname) as ssock:
           data = ssock.getpeercert()
-          expirationDate = data['notAfter']
-          expirationDateDT = datetime.datetime.strptime(expirationDate, '%b  %d %H:%M:%S %Y %Z') 
+          expirationDateDT = datetime.datetime.strptime(data['notAfter'], '%b  %d %H:%M:%S %Y %Z') 
   
   now = datetime.datetime.today()
   daysLeft = expirationDateDT - now
   
   DEFAULT_METRIC_PREFIX="name=Custom Metrics|CertMonitor|" + hostname + "|Days Until Cert Expiration,value=" + str(daysLeft.days)
-  
   print(DEFAULT_METRIC_PREFIX)

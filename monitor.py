@@ -3,11 +3,9 @@ from urllib.error import URLError, HTTPError
 import json, datetime
 
 #todo: get from xml
-base_url = 'appdynamics.com'
+hostname = 'appdynamics.com'
 port = '443'
 
-
-hostname = base_url
 context = ssl.create_default_context()
 
 with socket.create_connection((hostname, port)) as sock:
